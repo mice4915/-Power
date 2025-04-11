@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>People Power - Alliance Management</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="font-[Poppins] bg-gray-100">
+    <!-- Navigation -->
+    <nav class="bg-gray-900 text-white">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                    <a href="index.html" class="text-2xl font-bold">People Power</a>
+                    <span class="ml-4 text-gray-400">Alliance Management</span>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="map.html" class="hover:text-yellow-400 transition">Map</a>
+                    <a href="resources.html" class="hover:text-yellow-400 transition">Resources</a>
+                    <a href="profile.html" class="hover:text-yellow-400 transition">Profile</a>
+                </div>
+                <div class="md:hidden">
+                    <button class="text-white" onclick="toggleMobileMenu()">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-6 py-8">
+        <!-- Alliance Overview -->
+        <div class="grid md:grid-cols-2 gap-8 mb-8">
+            <!-- Current Alliances -->
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <h2 class="text-2xl font-semibold mb-6">Current Alliances</h2>
+                <div class="space-y-4" id="current-alliances">
+                    <!-- Alliance items will be dynamically added here -->
+                </div>
+            </div>
+
+            <!-- Alliance Statistics -->
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <h2 class="text-2xl font-semibold mb-6">Alliance Statistics</h2>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="bg-blue-50 rounded-lg p-4">
+                        <h3 class="text-lg font-semibold text-blue-700">Total Alliances</h3>
+                        <div class="text-3xl font-bold text-blue-800" id="total-alliances">0</div>
+                    </div>
+                    <div class="bg-green-50 rounded-lg p-4">
+                        <h3 class="text-lg font-semibold text-green-700">Allied Districts</h3>
+                        <div class="text-3xl font-bold text-green-800" id="allied-districts">0/20</div>
+                    </div>
+                    <div class="bg-purple-50 rounded-lg p-4">
+                        <h3 class="text-lg font-semibold text-purple-700">Average Relations</h3>
+                        <div class="text-3xl font-bold text-purple-800" id="avg-relations">0</div>
+                    </div>
+                    <div class="bg-yellow-50 rounded-lg p-4">
+                        <h3 class="text-lg font-semibold text-yellow-700">Active Treaties</h3>
+                        <div class="text-3xl font-bold text-yellow-800" id="active-treaties">0</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Diplomatic Relations -->
+        <div class="bg-white rounded-lg shadow-lg p-6">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-semibold">Diplomatic Relations</h2>
+                <div class="flex space-x-2">
+                    <button class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition" onclick="proposeMultipleAlliances()">
+                        <i class="fas fa-handshake mr-2"></i>Mass Diplomacy
+                    </button>
+                    <button class="px-4 py-2 bg-purple-500 text-white rounded-lg hover:bg-purple-600 transition" onclick="showTreatyModal()">
+                        <i class="fas fa-scroll mr-2"></i>New Treaty
+                    </button>
+                </div>
+            </div>
+
+            <!-- Relations Grid -->
+            <div class="overflow-x-auto">
+                <table class="w-full" id="relations-table">
+                    <thead>
+                        <tr>
+                            <th class="text-left p-2">District</th>
+                            <th class="text-center p-2">Relation</th>
+                            <th class="text-center p-2">Status</th>
+                            <th class="text-center p-2">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="relations-body">
+                        <!-- Relations will be dynamically added here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <!-- Mobile Menu -->
+    <div class="hidden fixed inset-0 bg-black/90 z-50" id="mobile-menu">
+        <div class="flex justify-end p-4">
+            <button class="text-white" onclick="toggleMobileMenu()">
+                <i class="fas fa-times text-2xl"></i>
+            </button>
+        </div>
+        <div class="flex flex-col items-center space-y-8 pt-8">
+            <a href="map.html" class="text-white text-2xl">Map</a>
+            <a href="resources.html" class="text-white text-2xl">Resources</a>
+            <a href="profile.html" class="text-white text-2xl">Profile</a>
+        </div>
+    </div>
+
+    <!-- Treaty Modal Template -->
+    <template id="treaty-modal-template">
+        <div class="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+            <div class="bg-white rounded-lg p-6 max-w-md w-full mx-4">
+                <h3 class="text-xl font-semibold mb-4">Propose New Treaty</h3>
+                <form id="treaty-form">
+                    <div class="mb-4">
+                        <label class="block text-gray-700 mb-2">Select District</label>
+                        <select class="w-full p-2 border rounded" id="treaty-district">
+                            <!-- Districts will be dynamically added here -->
+                        </select>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 mb-2">Treaty Terms</label>
+                        <div class="space-y-2">
+                            <label class="flex items-center">
+                                <input type="checkbox" class="mr-2" name="resourceSharing">
+                                Resource Sharing
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" class="mr-2" name="mutualDefense">
+                                Mutual Defense
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" class="mr-2" name="tradeAgreement">
+                                Trade Agreement
+                            </label>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 mb-2">Duration (Days)</label>
+                        <input type="number" class="w-full p-2 border rounded" min="1" max="365" value="30" id="treaty-duration">
+                    </div>
+                    <div class="flex justify-end space-x-2">
+                        <button type="button" class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400 transition" onclick="closeTreatyModal()">
+                            Cancel
+                        </button>
+                        <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition">
+                            Propose Treaty
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </template>
+
+    <script type="module">
+        import allianceSystem from './js/systems/allianceSystem.js';
+        import { districts, districtStatus } from './js/config/districts.js';
+
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            allianceSystem.initialize();
+            initializeRelationsTable();
+            updateAllianceStatistics();
+            updateCurrentAlliances();
+        });
+
+        function initializeRelationsTable() {
+            const tbody = document.getElementById('relations-body');
+            tbody.innerHTML = '';
+
+            Object.entries(districts).forEach(([key, district]) => {
+                const row = document.createElement('tr');
+                row.className = 'hover:bg-gray-50';
+                row.innerHTML = `
+                    <td class="p-2">${district.name}</td>
+                    <td class="text-center p-2">
+                        <span id="relation-${key}" class="font-semibold">0</span>
+                    </td>
+                    <td class="text-center p-2">
+                        <span id="alliance-status-${key}" class="px-2 py-1 rounded-full text-sm">Neutral</span>
+                    </td>
+                    <td class="text-center p-2">
+                        <button class="px-3 py-1 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition mr-2"
+                                onclick="proposeAlliance('${key}')">
+                            Propose Alliance
+                        </button>
+                        <button class="px-3 py-1 bg-purple-500 text-white rounded-lg hover:bg-purple-600 transition"
+                                onclick="proposeTreaty('${key}')">
+                            Treaty
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        function updateAllianceStatistics() {
+            const alliances = allianceSystem.getAllAlliances();
+            document.getElementById('total-alliances').textContent = alliances.length;
+            
+            const alliedDistricts = new Set();
+            alliances.forEach(alliance => {
+                alliance.districts.forEach(district => alliedDistricts.add(district));
+            });
+            document.getElementById('allied-districts').textContent = `${alliedDistricts.size}/20`;
+
+            // Calculate average relations
+            let totalRelations = 0;
+            let relationCount = 0;
+            Object.keys(districts).forEach(district1 => {
+                Object.keys(districts).forEach(district2 => {
+                    if (district1 !== district2) {
+                        totalRelations += allianceSystem.getRelation(district1, district2);
+                        relationCount++;
+                    }
+                });
+            });
+            const avgRelations = Math.round(totalRelations / relationCount);
+            document.getElementById('avg-relations').textContent = avgRelations;
+
+            document.getElementById('active-treaties').textContent = 
+                Array.from(allianceSystem.treaties.values()).filter(t => t.status === 'active').length;
+        }
+
+        function updateCurrentAlliances() {
+            const container = document.getElementById('current-alliances');
+            container.innerHTML = '';
+
+            const alliances = allianceSystem.getAllAlliances();
+            if (alliances.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center text-gray-500 py-4">
+                        No active alliances
+                    </div>
+                `;
+                return;
+            }
+
+            alliances.forEach(alliance => {
+                const [district1, district2] = alliance.districts;
+                const div = document.createElement('div');
+                div.className = 'bg-gray-50 rounded-lg p-4 flex justify-between items-center';
+                div.innerHTML = `
+                    <div>
+                        <div class="font-semibold">${districts[district1].name} ↔ ${districts[district2].name}</div>
+                        <div class="text-sm text-gray-600">
+                            Formed: ${new Date(alliance.details.formed).toLocaleDateString()}
+                        </div>
+                    </div>
+                    <button class="px-3 py-1 bg-red-500 text-white rounded-lg hover:bg-red-600 transition"
+                            onclick="breakAlliance('${district1}', '${district2}')">
+                        Break Alliance
+                    </button>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        // Make functions available globally
+        window.proposeAlliance = (district) => {
+            allianceSystem.proposeAlliance('kampala', district); // Assuming player's main district is Kampala
+            updateAllianceStatistics();
+            updateCurrentAlliances();
+        };
+
+        window.breakAlliance = (district1, district2) => {
+            allianceSystem.breakAlliance(district1, district2);
+            updateAllianceStatistics();
+            updateCurrentAlliances();
+        };
+
+        window.proposeTreaty = (district) => {
+            showTreatyModal(district);
+        };
+
+        window.proposeMultipleAlliances = () => {
+            // Implement mass diplomacy logic
+            console.log('Mass diplomacy clicked');
+        };
+
+        window.showTreatyModal = (district = null) => {
+            const template = document.getElementById('treaty-modal-template');
+            const clone = template.content.cloneNode(true);
+            document.body.appendChild(clone);
+
+            // Setup treaty form submission
+            const form = document.getElementById('treaty-form');
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const formData = new FormData(form);
+                const terms = {
+                    resourceSharing: formData.get('resourceSharing') === 'on',
+                    mutualDefense: formData.get('mutualDefense') === 'on',
+                    tradeAgreement: formData.get('tradeAgreement') === 'on',
+                    duration: parseInt(document.getElementById('treaty-duration').value)
+                };
+                const selectedDistrict = document.getElementById('treaty-district').value;
+                allianceSystem.proposeTreaty('kampala', selectedDistrict, terms);
+                closeTreatyModal();
+            });
+        };
+
+        window.closeTreatyModal = () => {
+            const modal = document.querySelector('.fixed.inset-0');
+            if (modal) {
+                modal.remove();
+            }
+        };
+
+        window.toggleMobileMenu = () => {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        };
+    </script>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

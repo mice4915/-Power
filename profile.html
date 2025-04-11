@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>People Power - Leader Profile</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="font-[Poppins] bg-gray-100">
+    <!-- Navigation -->
+    <nav class="bg-gray-900 text-white">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                    <a href="index.html" class="text-2xl font-bold">People Power</a>
+                    <span class="ml-4 text-gray-400">Leader Profile</span>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="map.html" class="hover:text-yellow-400 transition">Map</a>
+                    <a href="resources.html" class="hover:text-yellow-400 transition">Resources</a>
+                    <a href="alliances.html" class="hover:text-yellow-400 transition">Alliances</a>
+                </div>
+                <div class="md:hidden">
+                    <button class="text-white" onclick="toggleMobileMenu()">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-6 py-8">
+        <div class="grid md:grid-cols-3 gap-8">
+            <!-- Profile Card -->
+            <div class="md:col-span-1">
+                <div class="bg-white rounded-lg shadow-lg p-6">
+                    <div class="text-center">
+                        <div class="w-32 h-32 mx-auto bg-gray-200 rounded-full flex items-center justify-center mb-4">
+                            <i class="fas fa-user text-4xl text-gray-400"></i>
+                        </div>
+                        <h2 class="text-2xl font-bold mb-1" id="profile-name">Leader Name</h2>
+                        <p class="text-gray-600 mb-4" id="profile-title">Movement Leader</p>
+                        
+                        <!-- Level and Experience -->
+                        <div class="mb-6">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-sm text-gray-600">Level</span>
+                                <span class="font-bold" id="profile-level">1</span>
+                            </div>
+                            <div class="relative pt-1">
+                                <div class="overflow-hidden h-2 text-xs flex rounded bg-gray-200">
+                                    <div class="w-1/2 shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-yellow-500"
+                                         id="experience-bar"></div>
+                                </div>
+                                <div class="text-xs text-gray-600 mt-1" id="experience-text">500/1000 XP</div>
+                            </div>
+                        </div>
+
+                        <!-- Edit Profile Button -->
+                        <button onclick="showEditProfileModal()" 
+                                class="w-full bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition">
+                            <i class="fas fa-edit mr-2"></i>Edit Profile
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Statistics and Achievements -->
+            <div class="md:col-span-2">
+                <!-- Statistics -->
+                <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+                    <h3 class="text-xl font-semibold mb-6">Movement Statistics</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-blue-600" id="stat-totalSupporters">0</div>
+                            <div class="text-sm text-gray-600">Total Supporters</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-green-600" id="stat-districtsControlled">0</div>
+                            <div class="text-sm text-gray-600">Districts Controlled</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-purple-600" id="stat-alliances">0</div>
+                            <div class="text-sm text-gray-600">Active Alliances</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-yellow-600" id="stat-eventsCompleted">0</div>
+                            <div class="text-sm text-gray-600">Events Completed</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-red-600" id="stat-daysInPower">0</div>
+                            <div class="text-sm text-gray-600">Days in Power</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-indigo-600" id="stat-resourcesGenerated">0</div>
+                            <div class="text-sm text-gray-600">Resources Generated</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Achievements -->
+                <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+                    <h3 class="text-xl font-semibold mb-6">Achievements</h3>
+                    <div class="space-y-4" id="achievements-list">
+                        <!-- Achievements will be dynamically added here -->
+                    </div>
+                </div>
+
+                <!-- Badges -->
+                <div class="bg-white rounded-lg shadow-lg p-6">
+                    <h3 class="text-xl font-semibold mb-6">Badges</h3>
+                    <div class="space-y-4" id="badges-list">
+                        <!-- Badges will be dynamically added here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Mobile Menu -->
+    <div class="hidden fixed inset-0 bg-black/90 z-50" id="mobile-menu">
+        <div class="flex justify-end p-4">
+            <button class="text-white" onclick="toggleMobileMenu()">
+                <i class="fas fa-times text-2xl"></i>
+            </button>
+        </div>
+        <div class="flex flex-col items-center space-y-8 pt-8">
+            <a href="map.html" class="text-white text-2xl">Map</a>
+            <a href="resources.html" class="text-white text-2xl">Resources</a>
+            <a href="alliances.html" class="text-white text-2xl">Alliances</a>
+        </div>
+    </div>
+
+    <!-- Edit Profile Modal Template -->
+    <template id="edit-profile-modal">
+        <div class="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+            <div class="bg-white rounded-lg p-6 max-w-md w-full mx-4">
+                <h3 class="text-xl font-semibold mb-4">Edit Profile</h3>
+                <form id="edit-profile-form">
+                    <div class="mb-4">
+                        <label class="block text-gray-700 mb-2">Leader Name</label>
+                        <input type="text" id="edit-name" class="w-full p-2 border rounded" 
+                               placeholder="Enter your name">
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 mb-2">Title</label>
+                        <input type="text" id="edit-title" class="w-full p-2 border rounded" 
+                               placeholder="Enter your title">
+                    </div>
+                    <div class="flex justify-end space-x-2">
+                        <button type="button" class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400 transition"
+                                onclick="closeEditProfileModal()">
+                            Cancel
+                        </button>
+                        <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition">
+                            Save Changes
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </template>
+
+    <script type="module">
+        import profileSystem from './js/systems/profileSystem.js';
+
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            profileSystem.initialize();
+            profileSystem.updateUI();
+        });
+
+        // Make functions available globally
+        window.showEditProfileModal = () => {
+            const template = document.getElementById('edit-profile-modal');
+            const clone = template.content.cloneNode(true);
+            document.body.appendChild(clone);
+
+            // Pre-fill current values
+            document.getElementById('edit-name').value = profileSystem.profile.name;
+            document.getElementById('edit-title').value = profileSystem.profile.title;
+
+            // Setup form submission
+            const form = document.getElementById('edit-profile-form');
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const updates = {
+                    name: document.getElementById('edit-name').value,
+                    title: document.getElementById('edit-title').value
+                };
+                profileSystem.updateProfile(updates);
+                closeEditProfileModal();
+            });
+        };
+
+        window.closeEditProfileModal = () => {
+            const modal = document.querySelector('.fixed.inset-0');
+            if (modal) {
+                modal.remove();
+            }
+        };
+
+        window.toggleMobileMenu = () => {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        };
+    </script>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>People Power - Resource Management</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="font-[Poppins] bg-gray-100">
+    <!-- Navigation -->
+    <nav class="bg-gray-900 text-white">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                    <a href="index.html" class="text-2xl font-bold">People Power</a>
+                    <span class="ml-4 text-gray-400">Resource Management</span>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="map.html" class="hover:text-yellow-400 transition">Map</a>
+                    <a href="alliances.html" class="hover:text-yellow-400 transition">Alliances</a>
+                    <a href="profile.html" class="hover:text-yellow-400 transition">Profile</a>
+                </div>
+                <div class="md:hidden">
+                    <button class="text-white" onclick="toggleMobileMenu()">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-6 py-8">
+        <!-- Global Resources Overview -->
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-semibold mb-6">Global Resources</h2>
+            <div class="grid md:grid-cols-3 gap-6">
+                <!-- Supporters -->
+                <div class="bg-blue-50 rounded-lg p-4">
+                    <div class="flex justify-between items-center mb-2">
+                        <h3 class="text-lg font-semibold text-blue-700">
+                            <i class="fas fa-users mr-2"></i>Supporters
+                        </h3>
+                        <span class="text-sm text-blue-600" id="supporters-rate">+100/10s</span>
+                    </div>
+                    <div class="text-3xl font-bold text-blue-800 mb-2" id="supporters-amount">5,000</div>
+                    <div class="w-full bg-blue-200 rounded-full h-2">
+                        <div class="bg-blue-600 h-2 rounded-full" id="supporters-progress" style="width: 45%"></div>
+                    </div>
+                </div>
+
+                <!-- Influence -->
+                <div class="bg-purple-50 rounded-lg p-4">
+                    <div class="flex justify-between items-center mb-2">
+                        <h3 class="text-lg font-semibold text-purple-700">
+                            <i class="fas fa-star mr-2"></i>Influence
+                        </h3>
+                        <span class="text-sm text-purple-600" id="influence-rate">+10/10s</span>
+                    </div>
+                    <div class="text-3xl font-bold text-purple-800 mb-2" id="influence-amount">100</div>
+                    <div class="w-full bg-purple-200 rounded-full h-2">
+                        <div class="bg-purple-600 h-2 rounded-full" id="influence-progress" style="width: 30%"></div>
+                    </div>
+                </div>
+
+                <!-- Funds -->
+                <div class="bg-green-50 rounded-lg p-4">
+                    <div class="flex justify-between items-center mb-2">
+                        <h3 class="text-lg font-semibold text-green-700">
+                            <i class="fas fa-coins mr-2"></i>Funds
+                        </h3>
+                        <span class="text-sm text-green-600" id="funds-rate">+500/10s</span>
+                    </div>
+                    <div class="text-3xl font-bold text-green-800 mb-2" id="funds-amount">10,000</div>
+                    <div class="w-full bg-green-200 rounded-full h-2">
+                        <div class="bg-green-600 h-2 rounded-full" id="funds-progress" style="width: 25%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- District Resource Allocation -->
+        <div class="bg-white rounded-lg shadow-lg p-6">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-semibold">District Allocations</h2>
+                <div class="flex space-x-2">
+                    <button class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition" onclick="autoAllocate()">
+                        <i class="fas fa-magic mr-2"></i>Auto Allocate
+                    </button>
+                    <button class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition" onclick="resetAllocations()">
+                        <i class="fas fa-redo mr-2"></i>Reset
+                    </button>
+                </div>
+            </div>
+
+            <!-- District List -->
+            <div class="space-y-4" id="district-list">
+                <!-- District allocation items will be dynamically added here -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Mobile Menu -->
+    <div class="hidden fixed inset-0 bg-black/90 z-50" id="mobile-menu">
+        <div class="flex justify-end p-4">
+            <button class="text-white" onclick="toggleMobileMenu()">
+                <i class="fas fa-times text-2xl"></i>
+            </button>
+        </div>
+        <div class="flex flex-col items-center space-y-8 pt-8">
+            <a href="map.html" class="text-white text-2xl">Map</a>
+            <a href="alliances.html" class="text-white text-2xl">Alliances</a>
+            <a href="profile.html" class="text-white text-2xl">Profile</a>
+        </div>
+    </div>
+
+    <!-- District Allocation Template -->
+    <template id="district-template">
+        <div class="bg-gray-50 rounded-lg p-4">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-lg font-semibold" data-district-name></h3>
+                <span class="px-3 py-1 rounded-full text-sm" data-district-status></span>
+            </div>
+            <div class="grid md:grid-cols-3 gap-4">
+                <!-- Supporters Allocation -->
+                <div class="space-y-2">
+                    <label class="text-sm text-gray-600">Supporters</label>
+                    <div class="flex items-center space-x-2">
+                        <input type="range" class="w-full" data-resource="supporters" min="0" max="1000" value="0">
+                        <span class="text-sm font-semibold" data-supporters-value>0</span>
+                    </div>
+                </div>
+                <!-- Influence Allocation -->
+                <div class="space-y-2">
+                    <label class="text-sm text-gray-600">Influence</label>
+                    <div class="flex items-center space-x-2">
+                        <input type="range" class="w-full" data-resource="influence" min="0" max="100" value="0">
+                        <span class="text-sm font-semibold" data-influence-value>0</span>
+                    </div>
+                </div>
+                <!-- Funds Allocation -->
+                <div class="space-y-2">
+                    <label class="text-sm text-gray-600">Funds</label>
+                    <div class="flex items-center space-x-2">
+                        <input type="range" class="w-full" data-resource="funds" min="0" max="10000" value="0">
+                        <span class="text-sm font-semibold" data-funds-value>0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <script type="module">
+        import resourceSystem from './js/systems/resourceSystem.js';
+        import { districts, districtStatus } from './js/config/districts.js';
+
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            resourceSystem.initialize();
+            initializeDistrictList();
+            updateResourceDisplay();
+        });
+
+        function initializeDistrictList() {
+            const districtList = document.getElementById('district-list');
+            const template = document.getElementById('district-template');
+
+            Object.entries(districts).forEach(([key, district]) => {
+                const clone = template.content.cloneNode(true);
+                
+                // Set district name and initial status
+                clone.querySelector('[data-district-name]').textContent = district.name;
+                const statusElement = clone.querySelector('[data-district-status]');
+                statusElement.textContent = 'Neutral';
+                statusElement.className = 'px-3 py-1 rounded-full text-sm bg-gray-200 text-gray-700';
+
+                // Setup resource sliders
+                clone.querySelectorAll('input[type="range"]').forEach(slider => {
+                    slider.addEventListener('input', (e) => {
+                        const resource = e.target.dataset.resource;
+                        const value = parseInt(e.target.value);
+                        const valueDisplay = e.target.parentElement.querySelector(`[data-${resource}-value]`);
+                        valueDisplay.textContent = value;
+                        
+                        // Update resource allocation
+                        resourceSystem.allocateToDistrict(key, resource, value);
+                    });
+                });
+
+                districtList.appendChild(clone);
+            });
+        }
+
+        function updateResourceDisplay() {
+            const resources = resourceSystem.getTotalResources();
+            Object.entries(resources).forEach(([resource, amount]) => {
+                const amountElement = document.getElementById(`${resource}-amount`);
+                if (amountElement) {
+                    amountElement.textContent = formatNumber(amount);
+                }
+            });
+        }
+
+        function formatNumber(number) {
+            return new Intl.NumberFormat().format(number);
+        }
+
+        // Make functions available globally
+        window.autoAllocate = () => {
+            // Implement auto-allocation logic
+            console.log('Auto allocate clicked');
+        };
+
+        window.resetAllocations = () => {
+            // Implement reset logic
+            console.log('Reset allocations clicked');
+        };
+
+        window.toggleMobileMenu = () => {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        };
+    </script>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

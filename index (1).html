@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>People Power - Political Strategy Game</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body class="font-[Poppins] bg-gray-100">
+    <!-- Hero Section -->
+    <div class="relative h-screen">
+        <!-- Background Image with Overlay -->
+        <div class="absolute inset-0 bg-[url('https://images.pexels.com/photos/1550337/pexels-photo-1550337.jpeg')] bg-cover bg-center">
+            <div class="absolute inset-0 bg-black/60"></div>
+        </div>
+
+        <!-- Navigation -->
+        <nav class="relative z-10 bg-transparent">
+            <div class="container mx-auto px-6 py-4">
+                <div class="flex items-center justify-between">
+                    <div class="text-white text-2xl font-bold">People Power</div>
+                    <div class="hidden md:flex space-x-8">
+                        <a href="/map.html" class="text-white hover:text-yellow-400 transition">Map</a>
+                        <a href="/resources.html" class="text-white hover:text-yellow-400 transition">Resources</a>
+                        <a href="/alliances.html" class="text-white hover:text-yellow-400 transition">Alliances</a>
+                        <a href="/profile.html" class="text-white hover:text-yellow-400 transition">Profile</a>
+                    </div>
+                    <!-- Mobile Menu Button -->
+                    <div class="md:hidden">
+                        <button class="text-white" onclick="toggleMobileMenu()">
+                            <i class="fas fa-bars text-2xl"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Hero Content -->
+        <div class="relative z-10 h-full flex items-center justify-center text-center">
+            <div class="container mx-auto px-6">
+                <h1 class="text-5xl md:text-7xl font-bold text-white mb-8">People Power</h1>
+                <p class="text-xl md:text-2xl text-gray-300 mb-12 max-w-3xl mx-auto">
+                    Lead a grassroots movement, build alliances, and shape the future of Uganda through the power of the people.
+                </p>
+                <div class="space-x-4">
+                    <a href="/map.html" class="bg-yellow-500 text-black px-8 py-4 rounded-full text-lg font-semibold hover:bg-yellow-400 transition">
+                        Start Your Movement
+                    </a>
+                    <a href="#about" class="bg-transparent border-2 border-white text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-white/10 transition">
+                        Learn More
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-12">About the Movement</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="text-center p-6">
+                    <i class="fas fa-users text-4xl text-yellow-500 mb-4"></i>
+                    <h3 class="text-xl font-semibold mb-4">Build Support</h3>
+                    <p class="text-gray-600">Gather supporters across 20 districts and build a strong grassroots movement.</p>
+                </div>
+                <div class="text-center p-6">
+                    <i class="fas fa-handshake text-4xl text-yellow-500 mb-4"></i>
+                    <h3 class="text-xl font-semibold mb-4">Form Alliances</h3>
+                    <p class="text-gray-600">Create strategic partnerships with other leaders and organizations.</p>
+                </div>
+                <div class="text-center p-6">
+                    <i class="fas fa-bullhorn text-4xl text-yellow-500 mb-4"></i>
+                    <h3 class="text-xl font-semibold mb-4">Spread Message</h3>
+                    <p class="text-gray-600">Share your vision and inspire change through peaceful demonstrations.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-20 bg-gray-100">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-12">Game Features</h2>
+            <div class="grid md:grid-cols-2 gap-12">
+                <div class="bg-white rounded-lg p-8 shadow-lg">
+                    <h3 class="text-2xl font-semibold mb-4">Strategic Management</h3>
+                    <ul class="space-y-4">
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                            Manage resources across 20 districts
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                            Build and maintain supporter networks
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                            Organize peaceful demonstrations
+                        </li>
+                    </ul>
+                </div>
+                <div class="bg-white rounded-lg p-8 shadow-lg">
+                    <h3 class="text-2xl font-semibold mb-4">Dynamic Events</h3>
+                    <ul class="space-y-4">
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                            Respond to real-time challenges
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                            Navigate political landscapes
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                            Build public support
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-3 gap-8">
+                <div>
+                    <h4 class="text-xl font-semibold mb-4">People Power</h4>
+                    <p class="text-gray-400">A political strategy simulation game focused on grassroots movements and democratic change.</p>
+                </div>
+                <div>
+                    <h4 class="text-xl font-semibold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="/map.html" class="text-gray-400 hover:text-white transition">Map</a></li>
+                        <li><a href="/resources.html" class="text-gray-400 hover:text-white transition">Resources</a></li>
+                        <li><a href="/alliances.html" class="text-gray-400 hover:text-white transition">Alliances</a></li>
+                        <li><a href="/profile.html" class="text-gray-400 hover:text-white transition">Profile</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-xl font-semibold mb-4">Connect</h4>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition">
+                            <i class="fab fa-twitter text-2xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition">
+                            <i class="fab fa-facebook text-2xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition">
+                            <i class="fab fa-instagram text-2xl"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center">
+                <p class="text-gray-400">&copy; 2023 People Power. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mobile Menu (Hidden by default) -->
+    <div class="hidden fixed inset-0 bg-black/90 z-50" id="mobile-menu">
+        <div class="flex justify-end p-4">
+            <button class="text-white" onclick="toggleMobileMenu()">
+                <i class="fas fa-times text-2xl"></i>
+            </button>
+        </div>
+        <div class="flex flex-col items-center space-y-8 pt-8">
+            <a href="/map.html" class="text-white text-2xl">Map</a>
+            <a href="/resources.html" class="text-white text-2xl">Resources</a>
+            <a href="/alliances.html" class="text-white text-2xl">Alliances</a>
+            <a href="/profile.html" class="text-white text-2xl">Profile</a>
+        </div>
+    </div>
+
+    <script type="module">
+        import { gameConfig } from '/js/config/gameConfig.js';
+        import resourceSystem from '/js/systems/resourceSystem.js';
+        import allianceSystem from '/js/systems/allianceSystem.js';
+        import profileSystem from '/js/systems/profileSystem.js';
+        import eventSystem from '/js/systems/eventSystem.js';
+
+        // Initialize systems when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            resourceSystem.initialize();
+            allianceSystem.initialize();
+            profileSystem.initialize();
+            eventSystem.initialize();
+        });
+
+        // Make toggleMobileMenu available globally
+        window.toggleMobileMenu = () => {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        };
+    </script>
+</body>
+</html>
